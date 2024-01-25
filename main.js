@@ -108,7 +108,7 @@ function play() {
 }
 
 function reset() {
-    ifFirst = true
+    isFirst = true
    remain =5
    userNumberList =[]
    remainTag.innerHTML = `남은횟수: ${remain}`

@@ -41,6 +41,7 @@ function enterKeyHandler(event){
 userInput.addEventListener('focus', initialize)
 function initialize(){
     userInput.value =''
+    userInput.placeholder=''
 }
 
 

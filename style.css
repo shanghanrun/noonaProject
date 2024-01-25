@@ -5,7 +5,7 @@ body {
     position: relative;
 }
 
-/* before는 바닥에 깔리는 것 */
+/* before와 after는 배경화면을 다룰 때는 차이 없다. */
 body::before {
     content: '';
     position: absolute;
@@ -51,39 +51,40 @@ img {
     border-radius: 10px;
 }
 
-#result-tag{
+#result-tag {
     height: 60px;
-        width: 200px;
-        font-size: 20px;
-        background-color: rgb(237, 173, 248);
-    
-        display: flex;
-        align-items: center;
-        /* 상하 중간에 정렬 */
-        justify-content: center;
-        /* 좌우 중간에 정렬 */
-        border-radius: 10px;
-        /* 곡선 보더 */
-        margin-top:10px;
-        margin-bottom:10px;
+    width: 200px;
+    font-size: 20px;
+    background-color: rgb(237, 173, 248);
+
+    display: flex;
+    align-items: center;
+    /* 상하 중간에 정렬 */
+    justify-content: center;
+    /* 좌우 중간에 정렬 */
+    border-radius: 10px;
+    /* 곡선 보더 */
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-#user-input{
+#user-input {
     height: 60px;
-        width: 200px;
-        font-size: 20px;
-        border-radius: 4px;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 4px;
 }
+
 /* 기본 스타일 */
 #play-button {
     height: 60px;
-        width: 200px;
-        font-size: 20px;
+    width: 200px;
+    font-size: 20px;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 10px;
     margin-top: 10px;
-        margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 /* 활성화된 상태의 스타일 */
@@ -104,16 +105,16 @@ img {
     /* 비활성화된 상태에서는 클릭 방지 */
 }
 
-#reset-button{
+#reset-button {
     height: 60px;
-        width: 80px;
-        font-size: 20px;
-        background-color: rgb(251, 34, 131);
-    
-        display: flex;
-        align-items: center;
-        /* 상하 중간에 정렬 */
-        justify-content: center;
-        /* 좌우 중간에 정렬 */
-        border-radius: 50px;
+    width: 80px;
+    font-size: 20px;
+    background-color: rgb(251, 34, 131);
+
+    display: flex;
+    align-items: center;
+    /* 상하 중간에 정렬 */
+    justify-content: center;
+    /* 좌우 중간에 정렬 */
+    border-radius: 50px;
 }

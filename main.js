@@ -37,6 +37,12 @@ function enterKeyHandler(event){
     }
 }
 
+// userInput에 숫자가 적혔다가, 다른 곳을 눌렀다가, 다시 userInput을 눌렀을 때, 새로 입력할 수 있게 '' 환경을 만드는 것
+userInput.addEventListener('focus', initialize)
+function initialize(){
+    userInput.value =''
+}
+
 
 console.log(playButton)
 playButton.addEventListener('click', play)
@@ -111,13 +117,16 @@ function reset() {
    activateGoButton()
    playButton.addEventListener('click', play);
    userInput.addEventListener('keydown', enterKeyHandler);
+   userInput.addEventListener('focus', initialize)
 }
 
 function deactivateGoButton(){  
     playButton.classList.remove('active');
     playButton.classList.add('disabled');
     playButton.removeEventListener('click', play);
+    // 아래도 더불어 비활성화하는 것이 좋다.
     userInput.removeEventListener('keydown', enterKeyHandler); 
+    userInput.removeEventListener('focus', initialize)
 
 }
 function activateGoButton(){
@@ -125,5 +134,6 @@ function activateGoButton(){
     playButton.classList.add('active');
     playButton.addEventListener('click', play);
     userInput.addEventListener('keydown', enterKeyHandler);
+    userInput.addEventListener('focus', initialize)
 }
 

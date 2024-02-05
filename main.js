@@ -28,6 +28,11 @@ const up ='https://i.pinimg.com/originals/e3/a8/b0/e3a8b02ab7761dc6d938668fc879a
 const success ='https://media.giphy.com/media/F3i3pwWJtS5c4/giphy.gif'
 const fail ='https://i.pinimg.com/originals/c6/c0/09/c6c0099d50376c25d1e436a93197ae26.gif'
 
+
+// 인풋을 클릭했을 때, 기존내용지우기
+userInput.addEventListener('focus', function(){
+    userInput.value =''
+})
 // 인풋을 넣고 enter를 눌러도 go버튼(playButton)누른 효과 나타나게
 userInput.addEventListener('keydown', enterKeyHandler);
 
@@ -86,7 +91,7 @@ function play() {
     if (remain == 0){
         // go 버튼 비활성화 
         deactivateGoButton()
-        resultTag.innerHTML='실패'
+        resultTag.innerHTML=`실패. 정답(${computerNumber})`
         image.src = fail
     }
    } else {  //  (userNumber < computerNumber)

@@ -53,7 +53,7 @@ img {
 
 #result-tag {
     height: 60px;
-    width: 200px;
+    width: 220px;
     font-size: 20px;
     background-color: rgb(237, 173, 248);
 
@@ -73,6 +73,7 @@ img {
     width: 200px;
     font-size: 20px;
     border-radius: 4px;
+    padding: 0 10px;
 }
 
 /* 기본 스타일 */
@@ -118,3 +119,6 @@ img {
     /* 좌우 중간에 정렬 */
     border-radius: 50px;
 }
+
+
+/* 모두 flex 세로방향이라서 미디어쿼리가 필요없는 듯 */

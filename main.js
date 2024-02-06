@@ -13,11 +13,11 @@
 let isFirst = true
 let computerNumber = 0
 let userNumber =0
-let userNumberList =[]
-let remain = 5
+let history =[]
+let chance = 5
 const playButton = document.getElementById('play-button')
 const userInput = document.getElementById('user-input')
-const remainTag = document.getElementById('remain-tag')
+const chanceTag = document.getElementById('chance-tag')
 const resultTag = document.getElementById('result-tag')
 const resetButton = document.getElementById('reset-button')
 const image = document.getElementById('image')
@@ -68,7 +68,7 @@ function play() {
     resultTag.innerHTML = "1~100사이 숫자를 입력하세요"
     // input 창 숫자를 리셋
     userInput.value = ''
-   } else if ( userNumberList.includes(userNumber)){
+   } else if ( history.includes(userNumber)){
     // 결과창에 이미 입력한 숫자라고 알려줌.
     resultTag.innerHTML = '이미 입력한 숫자입니다.'
     // input 창 숫자를 리셋
@@ -85,10 +85,10 @@ function play() {
     image.src = down
     // input창 리셋
     userInput.value =''
-    remain--
-    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
-    userNumberList.push(userNumber)
-    if (remain == 0){
+    chance--
+    chanceTag.innerHTML = `남은 횟수: ${chance}` //화면 반영 위해!!
+    history.push(userNumber)
+    if (chance == 0){
         // go 버튼 비활성화 
         deactivateGoButton()
         resultTag.innerHTML=`실패. 정답(${computerNumber})`
@@ -100,10 +100,10 @@ function play() {
     image.src = up
     // input창 리셋
     userInput.value =''
-    remain--
-    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
-    userNumberList.push(userNumber)
-    if (remain ==0){
+    chance--
+    chanceTag.innerHTML = `남은 횟수: ${chance}` //화면 반영 위해!!
+    history.push(userNumber)
+    if (chance ==0){
         // go 버튼 비활성화 
         deactivateGoButton()
         resultTag.innerHTML='실패'
@@ -114,9 +114,9 @@ function play() {
 
 function reset() {
     isFirst = true
-    remain =5
-    userNumberList =[]
-    remainTag.innerHTML = `남은횟수: ${remain}`
+    chance =5
+    history =[]
+    chanceTag.innerHTML = `남은횟수: ${chance}`
     resultTag.innerHTML = '메시지'
     userInput.value =''
     image.src = pending

@@ -29,10 +29,10 @@ const success ='https://media.giphy.com/media/F3i3pwWJtS5c4/giphy.gif'
 const fail ='https://i.pinimg.com/originals/c6/c0/09/c6c0099d50376c25d1e436a93197ae26.gif'
 
 
-// 인풋을 클릭했을 때, 기존내용지우기
-userInput.addEventListener('focus', function(){
-    userInput.value =''
-})
+// 인풋을 클릭했을 때, 기존내용지우기, 그런데 중복됨
+// userInput.addEventListener('focus', function(){
+//     userInput.value =''
+// }) 
 // 인풋을 넣고 enter를 눌러도 go버튼(playButton)누른 효과 나타나게
 userInput.addEventListener('keydown', enterKeyHandler);
 

@@ -13,11 +13,11 @@
 let isFirst = true
 let computerNumber = 0
 let userNumber =0
-let history =[]
-let chance = 5
+let userNumberList =[]
+let remain = 5
 const playButton = document.getElementById('play-button')
 const userInput = document.getElementById('user-input')
-const chanceTag = document.getElementById('chance-tag')
+const remainTag = document.getElementById('remain-tag')
 const resultTag = document.getElementById('result-tag')
 const resetButton = document.getElementById('reset-button')
 const image = document.getElementById('image')
@@ -28,11 +28,6 @@ const up ='https://i.pinimg.com/originals/e3/a8/b0/e3a8b02ab7761dc6d938668fc879a
 const success ='https://media.giphy.com/media/F3i3pwWJtS5c4/giphy.gif'
 const fail ='https://i.pinimg.com/originals/c6/c0/09/c6c0099d50376c25d1e436a93197ae26.gif'
 
-
-// 인풋을 클릭했을 때, 기존내용지우기, 그런데 중복됨
-// userInput.addEventListener('focus', function(){
-//     userInput.value =''
-// }) 
 // 인풋을 넣고 enter를 눌러도 go버튼(playButton)누른 효과 나타나게
 userInput.addEventListener('keydown', enterKeyHandler);
 
@@ -68,7 +63,7 @@ function play() {
     resultTag.innerHTML = "1~100사이 숫자를 입력하세요"
     // input 창 숫자를 리셋
     userInput.value = ''
-   } else if ( history.includes(userNumber)){
+   } else if ( userNumberList.includes(userNumber)){
     // 결과창에 이미 입력한 숫자라고 알려줌.
     resultTag.innerHTML = '이미 입력한 숫자입니다.'
     // input 창 숫자를 리셋
@@ -85,13 +80,13 @@ function play() {
     image.src = down
     // input창 리셋
     userInput.value =''
-    chance--
-    chanceTag.innerHTML = `남은 횟수: ${chance}` //화면 반영 위해!!
-    history.push(userNumber)
-    if (chance == 0){
+    remain--
+    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
+    userNumberList.push(userNumber)
+    if (remain == 0){
         // go 버튼 비활성화 
         deactivateGoButton()
-        resultTag.innerHTML=`실패. 정답(${computerNumber})`
+        resultTag.innerHTML='실패'
         image.src = fail
     }
    } else {  //  (userNumber < computerNumber)
@@ -100,10 +95,10 @@ function play() {
     image.src = up
     // input창 리셋
     userInput.value =''
-    chance--
-    chanceTag.innerHTML = `남은 횟수: ${chance}` //화면 반영 위해!!
-    history.push(userNumber)
-    if (chance ==0){
+    remain--
+    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
+    userNumberList.push(userNumber)
+    if (remain ==0){
         // go 버튼 비활성화 
         deactivateGoButton()
         resultTag.innerHTML='실패'
@@ -114,9 +109,9 @@ function play() {
 
 function reset() {
     isFirst = true
-    chance =5
-    history =[]
-    chanceTag.innerHTML = `남은횟수: ${chance}`
+    remain =5
+    userNumberList =[]
+    remainTag.innerHTML = `남은횟수: ${remain}`
     resultTag.innerHTML = '메시지'
     userInput.value =''
     image.src = pending

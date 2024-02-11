@@ -14,10 +14,12 @@ let isFirst = true
 let computerNumber = 0
 let userNumber =0
 let userNumberList =[]
-let remain = 5
+let chances = 5
+let gameOver = false;
+
 const playButton = document.getElementById('play-button')
 const userInput = document.getElementById('user-input')
-const remainTag = document.getElementById('remain-tag')
+const chancesTag = document.getElementById('chances-tag')
 const resultTag = document.getElementById('result-tag')
 const resetButton = document.getElementById('reset-button')
 const image = document.getElementById('image')
@@ -29,8 +31,7 @@ const success ='https://media.giphy.com/media/F3i3pwWJtS5c4/giphy.gif'
 const fail ='https://i.pinimg.com/originals/c6/c0/09/c6c0099d50376c25d1e436a93197ae26.gif'
 
 // 인풋을 넣고 enter를 눌러도 go버튼(playButton)누른 효과 나타나게
-userInput.addEventListener('keydown', enterKeyHandler);
-
+// userInput.addEventListener('keydown', enterKeyHandler);
 function enterKeyHandler(event){
     if(event.key == 'Enter'){
         play();
@@ -38,103 +39,110 @@ function enterKeyHandler(event){
 }
 
 // userInput에 숫자가 적혔다가, 다른 곳을 눌렀다가, 다시 userInput을 눌렀을 때, 새로 입력할 수 있게 '' 환경을 만드는 것
-userInput.addEventListener('focus', initialize)
-function initialize(){
+// userInput.addEventListener('focus', inputInitialize)
+function inputInitialize(){
     userInput.value =''
-    userInput.placeholder=''
+    userInput.placeholder='1~100사이 숫자입력'
 }
 
-
-console.log(playButton)
-playButton.addEventListener('click', play)
-resetButton.addEventListener('click', reset)
+// playButton.addEventListener('click', play)
+// resetButton.addEventListener('click', reset)
 
 function makeComputerNumber(){
     computerNumber = Math.floor(Math.random()*100)+1;   // randomd은 0=< 숫자 < 1
     console.log(computerNumber);
 }
 
-function play() {
-    if (isFirst) makeComputerNumber();
-    isFirst = false;
-   userNumber = userInput.value  // innerText, textContent로는 안된다.
-   if (userNumber >100 || userNumber <1){
-    // 결과창에 '1~100사이 숫자를 입력하라고 알려줌
-    resultTag.innerHTML = "1~100사이 숫자를 입력하세요"
-    // input 창 숫자를 리셋
-    userInput.value = ''
-   } else if ( userNumberList.includes(userNumber)){
-    // 결과창에 이미 입력한 숫자라고 알려줌.
-    resultTag.innerHTML = '이미 입력한 숫자입니다.'
-    // input 창 숫자를 리셋
-    userInput.value = ''
-   } else if ( userNumber == computerNumber){
-    // 결과창을 '정답'으로 
-    resultTag.innerHTML = '정답'
-    image.src = success
-    // go 버튼 비활성화 
-    deactivateGoButton()
-   } else if (userNumber > computerNumber){
-    // 결과창 'down'
-    resultTag.innerHTML = 'down'
-    image.src = down
-    // input창 리셋
-    userInput.value =''
-    remain--
-    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
-    userNumberList.push(userNumber)
-    if (remain == 0){
-        // go 버튼 비활성화 
-        deactivateGoButton()
-        resultTag.innerHTML='실패'
-        image.src = fail
-    }
-   } else {  //  (userNumber < computerNumber)
-    //결과창 'up'
-    resultTag.innerHTML = 'up'
-    image.src = up
-    // input창 리셋
-    userInput.value =''
-    remain--
-    remainTag.innerHTML = `남은 횟수: ${remain}` //화면 반영 위해!!
-    userNumberList.push(userNumber)
-    if (remain ==0){
-        // go 버튼 비활성화 
-        deactivateGoButton()
-        resultTag.innerHTML='실패'
-        image.src = fail
-    }
-   }
-}
-
-function reset() {
+// 모든 셋팅을 초기화하는 함수 
+function initialize(){
     isFirst = true
-    remain =5
+    chances =5
     userNumberList =[]
-    remainTag.innerHTML = `남은횟수: ${remain}`
+    chancesTag.innerHTML = `남은횟수: ${chances}`
     resultTag.innerHTML = '메시지'
     userInput.value =''
     image.src = pending
-    activateGoButton()
+
+    playButton.disabled = false;
     playButton.addEventListener('click', play);
     userInput.addEventListener('keydown', enterKeyHandler);
-    userInput.addEventListener('focus', initialize)
+    userInput.addEventListener('focus', inputInitialize)
+    resetButton.addEventListener('click', reset)
+}
+initialize()
+
+function play() {
+    if (isFirst) makeComputerNumber();
+    isFirst = false;
+    userNumber = userInput.value  // innerText, textContent로는 안된다.
+    if (userNumber >100 || userNumber <1){
+        // 결과창에 '1~100사이 숫자를 입력하라고 알려줌
+        resultTag.innerHTML = "1~100사이 숫자를 입력하세요"
+        // input 창 숫자를 리셋
+        userInput.value = ''
+    } else if ( userNumberList.includes(userNumber)){
+        // 결과창에 이미 입력한 숫자라고 알려줌.
+        resultTag.innerHTML = '이미 입력한 숫자입니다.'
+        // input 창 숫자를 리셋
+        userInput.value = ''
+    } else if (userNumber > computerNumber){
+        // 결과창 'down'
+        resultTag.innerHTML = 'down ↓'
+        image.src = down
+        // input창 리셋
+        userInput.value =''
+        chances--
+        chancesTag.innerHTML = `남은 횟수: ${chances}` //화면 반영 위해!!
+        userNumberList.push(userNumber)    
+    } else if(userNumber <computerNumber){  //  (userNumber < computerNumber)
+        //결과창 'up'
+        resultTag.innerHTML = 'up ↑'
+        image.src = up
+        // input창 리셋
+        userInput.value =''
+        chances--
+        chancesTag.innerHTML = `남은 횟수: ${chances}` //화면 반영 위해!!
+        userNumberList.push(userNumber)
+    } else if ( userNumber == computerNumber){
+        // 결과창을 '정답'으로 
+        resultTag.innerHTML = '정답!!'
+        image.src = success
+        // go 버튼 비활성화 
+        gameOver = true;
+    }
+    if (chances ==0){
+        gameOver = true;
+    }
+
+    if (gameOver){
+        // go 버튼 비활성화 
+        // playButton.disabled = true; 만 해도 이벤트리스너 제거된다.
+        playButton.disabled = true;
+        if(chances ==0){
+            resultTag.innerHTML=`실패( 정답:${computerNumber})`
+            image.src = fail
+        }
+    }
 }
 
-function deactivateGoButton(){  
-    playButton.classList.remove('active');
-    playButton.classList.add('disabled');
-    playButton.removeEventListener('click', play);
-    // 아래도 더불어 비활성화하는 것이 좋다.
-    userInput.removeEventListener('keydown', enterKeyHandler); 
-    userInput.removeEventListener('focus', initialize)
+function reset() {
+    initialize()
+}
 
-}
-function activateGoButton(){
-    playButton.classList.remove('disabled');
-    playButton.classList.add('active');
-    playButton.addEventListener('click', play);
-    userInput.addEventListener('keydown', enterKeyHandler);
-    userInput.addEventListener('focus', initialize)
-}
+// function deactivateGoButton(){  
+//     playButton.classList.remove('active');
+//     playButton.classList.add('disabled');
+//     playButton.removeEventListener('click', play);
+//     // 아래도 더불어 비활성화하는 것이 좋다.
+//     userInput.removeEventListener('keydown', enterKeyHandler); 
+//     userInput.removeEventListener('focus', initialize)
+
+// }
+// function activateGoButton(){
+//     playButton.classList.remove('disabled');
+//     playButton.classList.add('active');
+//     playButton.addEventListener('click', play);
+//     userInput.addEventListener('keydown', enterKeyHandler);
+//     userInput.addEventListener('focus', initialize)
+// }
 
